@@ -1,16 +1,4 @@
-/ComputerVisionProject
-│
-├── /images
-│   ├── /wet
-│   ├── /dry
-│   ├── /foggy
-│   └── /icy
-│
-├── /scripts
-│   ├── main.py                # Entry point of your application
-│   ├── image_conversion.py     # Script for converting images
-│   └── preprocessing.py        # Script for preprocessing images
-│
-└── /models                    # If you are using machine learning models
-    ├── model.py
-    └── training.py
+tensorflow>=2.0
+numpy
+matplotlib
+pillow

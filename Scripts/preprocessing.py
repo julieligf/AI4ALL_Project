@@ -1,23 +1,36 @@
-# preprocessing.py
-import numpy as np
+import os
+from tensorflow.keras.preprocessing.image import ImageDataGenerator # type: ignore
 
-def preprocess_images(features, target_size=(64, 64)):
-    """
-    Preprocess the images by normalizing pixel values and resizing them to a consistent size.
+def preprocess_images():
+    # Apply ImageDataGenerator to preprocess images
+    datagen = ImageDataGenerator(
+        rescale=1./255,
+        rotation_range=40,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest'
+    )
+    
+    # Directory where images are stored
+    dataset_dir = 'dataset/'
 
-    Args:
-        features (numpy.ndarray): Array of image features (flattened pixel values).
-        target_size (tuple): Desired size for resizing the images.
+    # For training
+    train_generator = datagen.flow_from_directory(
+        os.path.join(dataset_dir, 'train'),
+        target_size=(150, 150),
+        batch_size=32,
+        class_mode='categorical'
+    )
 
-    Returns:
-        numpy.ndarray: Preprocessed image features.
-    """
-    # Normalize pixel values to the range [0, 1]
-    features = features.astype('float32') / 255.0  # Normalize
+    # For validation
+    validation_generator = datagen.flow_from_directory(
+        os.path.join(dataset_dir, 'validation'),
+        target_size=(150, 150),
+        batch_size=32,
+        class_mode='categorical'
+    )
 
-    # Resize images to a consistent size (if applicable)
-    # Note: This example assumes features are still in the original format.
-    # You may want to resize before flattening in `image_conversion.py`.
-    # Use cv2.resize() if handling images directly.
-
-    return features
+    return train_generator, validation_generator
