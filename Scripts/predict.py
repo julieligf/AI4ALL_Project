@@ -21,3 +21,5 @@ predicted_class = np.argmax(predictions, axis=1)
 labels = ['dry', 'wet', 'foggy', 'wet']
 predicted_label = labels[predicted_class[0]]
 print(f"Predicted weather condition: {predicted_label}")
+
+
