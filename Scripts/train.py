@@ -1,11 +1,13 @@
 import torch
+import os
 from torch import nn, optim
 from torchvision import models
 from preprocessing import get_data_loaders
 from torchvision.models import ResNet50_Weights
 # Load DataLoaders
-train_dir = "/Users/mariocortez/Downloads/AI4ALL_Project/dataset/train"
-val_dir = "/Users/mariocortez/Downloads/AI4ALL_Project/dataset/validation"
+base_dir = os.path.dirname(os.path.abspath(__file__))
+train_dir = os.path.join(base_dir, "../dataset/train")
+val_dir = os.path.join(base_dir, "../dataset/validation")
 
 train_loader, val_loader, _ = get_data_loaders(train_dir, val_dir, batch_size=32)
 

@@ -1,11 +1,15 @@
 import torch
+import os
 from torchvision import models
 from preprocessing import get_data_loaders, get_test_loader
 from torchvision.models import ResNet50_Weights
 
 # Load DataLoaders
-test_dir = "/Users/mariocortez/Downloads/AI4ALL_Project/dataset/test"
+base_dir = os.path.dirname(os.path.abspath(__file__))
+test_dir = os.path.join(base_dir, "../dataset/test")
+
 test_loader = get_test_loader(test_dir, batch_size=32)
+
 
 # Load the model
 model = models.resnet50(weights=ResNet50_Weights.DEFAULT)
